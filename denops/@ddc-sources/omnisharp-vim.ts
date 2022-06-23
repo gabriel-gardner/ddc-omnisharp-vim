@@ -28,9 +28,14 @@ export class Source extends BaseSource<Params> {
 
       if (!lhs) {
             // return null
-            return [];
+            return Object.keys({trigger: ""}).map((trigger) => ({
+              word: trigger,
+              menu: "DIDNT SUCCESS",
+              user_data: "NO USER DATA",
+            }));
         }
-    return Object.keys({leftHand: "", partial: ""}).map((trigger) => ({
+
+    return Object.keys({trigger: ""}).map((trigger) => ({
       word: trigger,
       menu: partial,
       user_data: "NO USER DATA",
