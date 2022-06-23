@@ -24,19 +24,19 @@ export class Source extends BaseSource<Params> {
   ): Promise<Item[]> {
       const currentInput = args.context.input;
         
-    return Object.keys({trigger1: "word1", trigger2: "word2"}).map((trigger) => ({
-      word: trigger,
-      menu: "SUCCESS",
-      user_data: "NO USER DATA",
-    }));
-
-
       const [lhs, partial] = this.parseInput(currentInput);
 
       if (!lhs) {
             // return null
             return [];
         }
+    return Object.keys({leftHand: "", partial: ""}).map((trigger) => ({
+      word: trigger,
+      menu: partial,
+      user_data: "NO USER DATA",
+    }));
+
+
 
       if (lhs != this.previousLhs || partial.startsWith(this.previousPartial))
       {
