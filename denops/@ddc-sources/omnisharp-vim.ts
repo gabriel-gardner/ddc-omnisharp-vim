@@ -38,9 +38,9 @@ export class Source extends BaseSource<Params> {
       "current_ulti_dict_info",
     ) as Snippets;
     return Object.keys(snippets).map((trigger) => ({
-      word: trigger,
-      menu: snippets[trigger],
-      user_data: JSON.stringify({ "ultisnips": info[trigger] }),
+      word: "word",
+      menu: "menu",
+      user_data: "user-data",
     }));
 
 
