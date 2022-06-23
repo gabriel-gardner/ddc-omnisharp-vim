@@ -43,33 +43,33 @@ export class Source extends BaseSource<Params> {
 
 
 
-      if (lhs != this.previousLhs || partial.startsWith(this.previousPartial))
-      {
-            this.previousLhs = lhs;
-            this.previousPartial = partial;
-            const results = await args.denops.call(
-              "Omnisharp#actions#complete#Get",
-              lhs,
-              partial,
-            ) as {
-              [trigger: string]: string;
-            };
-            return [];
-          //self.previousLhs = lhs
-          //self.previousPartial = partial
-          //self.vim.call('deoplete#source#omnisharp#sendRequest', lhs, partial)
-          //return []
-      }
-      return [];
+      //if (lhs != this.previousLhs || partial.startsWith(this.previousPartial))
+      //{
+            //this.previousLhs = lhs;
+            //this.previousPartial = partial;
+            //const results = await args.denops.call(
+              //"Omnisharp#actions#complete#Get",
+              //lhs,
+              //partial,
+            //) as {
+              //[trigger: string]: string;
+            //};
+            //return [];
+          ////self.previousLhs = lhs
+          ////self.previousPartial = partial
+          ////self.vim.call('deoplete#source#omnisharp#sendRequest', lhs, partial)
+          ////return []
+      //}
+      //return [];
   }
 
   private parseInput(
     input: string,
-  ): [string, string] {
-        const match = input.match(/^(.*\W)(\w*)$/);
+  ): [string | undefined, string | undefined] {
+        const match = input.match(/^(?<firstgroup>.*\W)(?<secondgroup>\w*)$/);
 
-        if (match != null) {
-            return [match[0], match[1]];
+        if (match !== null) {
+            return [match?.groups?.firstgroup, match?.groups?.secondgroup];
         }        
         return ["", ""];
     }
