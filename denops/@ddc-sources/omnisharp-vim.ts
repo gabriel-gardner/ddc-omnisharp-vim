@@ -71,7 +71,7 @@ export class Source extends BaseSource<Params> {
         if (match !== null) {
             return [match?.groups?.firstgroup, match?.groups?.secondgroup];
         }        
-        return ["", ""];
+        return ["Match was null", "Match was null"];
     }
 
 
