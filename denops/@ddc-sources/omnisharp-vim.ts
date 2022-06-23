@@ -37,7 +37,7 @@ export class Source extends BaseSource<Params> {
 
     return Object.keys({trigger: ""}).map((trigger) => ({
       word: trigger,
-      menu: partial,
+      menu: lhs,
       user_data: "NO USER DATA",
     }));
 
