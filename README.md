@@ -1,2 +1,2 @@
 # ddc-omnisharp-vim
-omnisharp-vim source for ddc.vim
+Currently incomplete omnisharp-vim source for ddc.vim
