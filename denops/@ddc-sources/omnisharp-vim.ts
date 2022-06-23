@@ -9,13 +9,6 @@ import { Denops, vars } from "https://deno.land/x/ddc_vim@v2.2.0/deps.ts";
 
 type Params = Record<never, never>;
 
-export type Snippets = {
-  [word: string]: {
-    location: string;
-    description: string;
-  };
-};
-
 export class Source extends BaseSource<Params> {
   private previousLhs: string = "";
   private previousPartial: string = "";
@@ -35,32 +28,28 @@ export class Source extends BaseSource<Params> {
             }));
         }
 
-    return Object.keys({trigger: ""}).map((trigger) => ({
-      word: trigger,
-      menu: lhs,
-      user_data: "NO USER DATA",
-    }));
+      if (lhs != this.previousLhs || partial?.startsWith(this.previousPartial))
+      {
+            this.previousLhs = lhs!
+            this.previousPartial = partial!
+            const results = await args.denops.call(
+              "Omnisharp#actions#complete#Get",
+              partial,
+            ) as {
+              [trigger: string]: string[];
+            };
+            return Object.keys(results).map((trigger) => ({
+              word: trigger,
+              menu: results[trigger][0],
+              user_data: "NO USER DATA",
+            }));
+      }
 
-
-
-      //if (lhs != this.previousLhs || partial.startsWith(this.previousPartial))
-      //{
-            //this.previousLhs = lhs;
-            //this.previousPartial = partial;
-            //const results = await args.denops.call(
-              //"Omnisharp#actions#complete#Get",
-              //lhs,
-              //partial,
-            //) as {
-              //[trigger: string]: string;
-            //};
-            //return [];
-          ////self.previousLhs = lhs
-          ////self.previousPartial = partial
-          ////self.vim.call('deoplete#source#omnisharp#sendRequest', lhs, partial)
-          ////return []
-      //}
-      //return [];
+        return Object.keys({trigger: ""}).map((trigger) => ({
+          word: trigger,
+          menu: "DIDNT SUCCESS",
+          user_data: "NO USER DATA",
+        }));
   }
 
   private parseInput(
