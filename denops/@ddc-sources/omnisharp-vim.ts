@@ -23,31 +23,10 @@ export class Source extends BaseSource<Params> {
     args: GatherArguments<Params>,
   ): Promise<Item[]> {
       const currentInput = args.context.input;
-    if (await vars.g.get(args.denops, "did_plugin_ultisnips") == null) {
-      return [];
-    }
-
-    const snippets = await args.denops.call(
-      "UltiSnips#SnippetsInCurrentScope",
-      1,
-    ) as {
-      [trigger: string]: string;
-    };
-    const info = await vars.g.get(
-      args.denops,
-      "current_ulti_dict_info",
-    ) as Snippets;
-    return Object.keys(snippets).map((trigger) => ({
-      word: "word",
-      menu: "menu",
-      user_data: "user-data",
-    }));
-
-
         
-    return Object.keys(["abra", "cadabra"]).map((trigger) => ({
+    return Object.keys({trigger1: "word1", trigger2: "word2"}).map((trigger) => ({
       word: trigger,
-      menu: "HI MENU",
+      menu: "SUCCESS",
       user_data: "NO USER DATA",
     }));
 
