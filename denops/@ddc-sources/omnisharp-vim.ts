@@ -24,6 +24,12 @@ export class Source extends BaseSource<Params> {
   ): Promise<Item[]> {
       const currentInput = args.context.input;
         
+            return Object.keys({input: ""}).map((trigger) => ({
+              word: trigger,
+              menu: currentInput,
+              user_data: "NO USER DATA",
+            }));
+
       const [lhs, partial] = this.parseInput(currentInput);
 
       if (!lhs) {
