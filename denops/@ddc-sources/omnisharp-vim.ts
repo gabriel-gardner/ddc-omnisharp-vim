@@ -17,7 +17,7 @@ export class Source extends BaseSource<Params> {
       const currentInput = args.context.input;
 
         
-    return Object.keys(["a", "b"]).map((trigger) => ({
+    return Object.keys(["abra", "cadabra"]).map((trigger) => ({
       word: trigger,
       menu: "HI MENU",
       user_data: "NO USER DATA",
