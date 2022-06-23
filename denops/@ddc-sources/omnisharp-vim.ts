@@ -23,12 +23,6 @@ export class Source extends BaseSource<Params> {
     args: GatherArguments<Params>,
   ): Promise<Item[]> {
       const currentInput = args.context.input;
-        
-            return Object.keys({input: ""}).map((trigger) => ({
-              word: trigger,
-              menu: currentInput,
-              user_data: "NO USER DATA",
-            }));
 
       const [lhs, partial] = this.parseInput(currentInput);
 
@@ -72,7 +66,7 @@ export class Source extends BaseSource<Params> {
   private parseInput(
     input: string,
   ): [string, string] {
-        const match = input.match(/r"^(.*\W)(\w*)$"/);
+        const match = input.match(/^(.*\W)(\w*)$/);
 
         if (match != null) {
             return [match[0], match[1]];
