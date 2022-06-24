@@ -4,9 +4,7 @@ import { GatherArguments } from "https://deno.land/x/ddc_vim@v2.2.0/base/source.
 // I think this just ignores potential parameters to configure this source in ddc
 type Params = Record<never, never>;
 
-// Adaptation of the omnisharp-vim deoplete source for ddc.vim
-// Modeled off of the python interpretation
-
+// Adaptation of the python omnisharp-vim deoplete source
 export class Source extends BaseSource<Params> {
   previousLhs = "";
   previousPartial = "";
@@ -33,6 +31,7 @@ export class Source extends BaseSource<Params> {
       this.cachedResults = await args.denops.call(
           "OmniSharp#actions#complete#Get",
           partial,
+          () => null, // Testing empty callback to make Get not synchronous?
         ) as Item[];
     }
 
