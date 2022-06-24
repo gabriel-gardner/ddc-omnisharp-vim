@@ -27,31 +27,30 @@ export class Source extends BaseSource<Params> {
     }
 
     // Call omnisharp-vim to get completions
-    if (lhs != this.previousLhs || partial?.startsWith(this.previousPartial))
-      {
-        this.previousLhs = lhs!
-        this.previousPartial = partial!
-        args.denops.call(
-          "deoplete#source#omnisharp#sendRequest",
-          lhs,
-          partial
-        );
-        return [];
-      }
+    if (lhs != this.previousLhs || partial?.startsWith(this.previousPartial)) {
+      this.previousLhs = lhs!
+      this.previousPartial = partial!
+      args.denops.call(
+        "deoplete#source#omnisharp#sendRequest",
+        lhs,
+        partial
+      );
+      return [];
+    }
 
-      // Get stored results from omnisharp-vim
-      const results = await vars.g.get(
-        args.denops,
-        "deoplete#source#omnisharp#_results",
-      ) as {
-        words: string[];
-      }
+    // Get stored results from omnisharp-vim
+    const results = await vars.g.get(
+      args.denops,
+      "deoplete#source#omnisharp#_results",
+    ) as {
+      words: string[];
+    }
 
-      // This is very likely wrong
-      return results.words.map((word) => ({
-        word: lhs,
-        menu: word,
-      }));
+    // This is very likely wrong
+    return results.words.map((word) => ({
+      word: lhs,
+      menu: word,
+    }));
   }
 
   private parseInput(
