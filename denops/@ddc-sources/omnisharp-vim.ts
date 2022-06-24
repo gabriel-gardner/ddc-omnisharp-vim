@@ -48,6 +48,7 @@ export class Source extends BaseSource<Params> {
     const results = await args.denops.call(
         "OmniSharp#actions#complete#Get",
         partial,
+        () => {},
     ) as {
         completions: Item[];
     }
