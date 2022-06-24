@@ -5,16 +5,9 @@ import {
 import {
   GatherArguments,
 } from "https://deno.land/x/ddc_vim@v2.2.0/base/source.ts";
-import { Denops, vars } from "https://deno.land/x/ddc_vim@v2.2.0/deps.ts";
+import { vars } from "https://deno.land/x/ddc_vim@v2.2.0/deps.ts";
 
 type Params = Record<never, never>;
-
-export type Snippets = {
-  [word: string]: {
-    location: string;
-    description: string;
-  };
-};
 
 
 export class Source extends BaseSource<Params> {
@@ -28,13 +21,8 @@ export class Source extends BaseSource<Params> {
       const [lhs, partial] = this.parseInput(currentInput);
 
       if (!lhs) {
-            // return null
-            return Object.keys({trigger: ""}).map((trigger) => ({
-              word: trigger,
-              menu: "DIDNT SUCCESS",
-              user_data: "NO USER DATA",
-            }));
-        }
+        return [];
+    }
 
       if (lhs != this.previousLhs || partial?.startsWith(this.previousPartial))
       {
@@ -48,12 +36,15 @@ export class Source extends BaseSource<Params> {
             return [];
       }
 
-        const info = await vars.g.get(
+        const results = await vars.g.get(
           args.denops,
           "deoplete#source#omnisharp#_results",
-        ) as Snippets;
-        return Object.keys(info).map((trigger) => ({
-          word: trigger,
+        ) as {
+            words: string[];
+        }
+        return results.words.map((word) => ({
+          word: lhs,
+          menu: word,
         }));
   }
 
@@ -65,7 +56,7 @@ export class Source extends BaseSource<Params> {
         if (match !== null) {
             return [match?.groups?.firstgroup, match?.groups?.secondgroup];
         }        
-        return ["Match was null", "Match was null"];
+        return [undefined, undefined];
     }
 
 
