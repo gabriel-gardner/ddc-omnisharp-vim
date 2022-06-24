@@ -43,7 +43,7 @@ export class Source extends BaseSource<Params> {
     input: string,
   ): [string | undefined, string | undefined] {
 
-    // Attempted to adapt from the python regex in the deoplete source
+    // Adapted regex from the python regex in the deoplete source
     const match = input.match(/^(?<firstgroup>.*\W)(?<secondgroup>\w*)$/);
 
     if (match !== null) {
