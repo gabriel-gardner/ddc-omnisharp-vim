@@ -27,7 +27,7 @@ export class Source extends BaseSource<Params> {
     }
 
     // Call omnisharp-vim to get completions
-    if (lhs != this.previousLhs || partial?.startsWith(this.previousPartial)) {
+    if (lhs != this.previousLhs || !partial?.startsWith(this.previousPartial)) {
       this.previousLhs = lhs!
       this.previousPartial = partial!
       args.denops.call(
