@@ -1,6 +1,6 @@
 # ddc-omnisharp-vim
 
-omnisharp-vim source for ddc.vim
+omnisharp-vim source for ddc.vim, based on omnisharp-vim's deoplete source.
 
 ## Required
 
