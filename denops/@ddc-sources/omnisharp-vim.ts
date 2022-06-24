@@ -11,6 +11,7 @@ type Params = Record<never, never>;
 export class Source extends BaseSource<Params> {
   previousLhs = "";
   previousPartial = "";
+  results: Item[] = [];
 
   async gather(
     args: GatherArguments<Params>,
@@ -30,27 +31,31 @@ export class Source extends BaseSource<Params> {
     if (lhs != this.previousLhs || !partial?.startsWith(this.previousPartial)) {
       this.previousLhs = lhs!
       this.previousPartial = partial!
-      args.denops.call(
-        "deoplete#source#omnisharp#sendRequest",
-        lhs,
-        partial
-      );
-      return [];
+      //args.denops.call(
+        //"deoplete#source#omnisharp#sendRequest",
+        //lhs,
+        //partial
+      //);
+      this.results = await args.denops.call(
+          "OmniSharp#actions#complete#Get",
+          partial
+        ) as Item[];
     }
 
     // Get stored results from omnisharp-vim
-    const results = await vars.g.get(
-      args.denops,
-      "deoplete#source#omnisharp#_results",
-    ) as {
-      words: string[];
-    }
+    //const results = await vars.g.get(
+      //args.denops,
+      //"deoplete#source#omnisharp#_results",
+    //) as {
+      //words: string[];
+    //}
 
     // This is very likely wrong
-    return results.words.map((word) => ({
-      word: lhs,
-      menu: word,
-    }));
+    //return results.words.map((word) => ({
+      //word: lhs,
+      //menu: word,
+    //}));
+    return this.results;
   }
 
   private parseInput(
