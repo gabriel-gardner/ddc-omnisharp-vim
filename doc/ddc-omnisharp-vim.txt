@@ -1,0 +1,47 @@
+*ddc-omnisharp-vim.txt*	omnisharp-vim source for ddc.vim
+
+Author: gabriel-gardner <gabrielgardner@me.com>
+License: MIT license
+
+CONTENTS						*ddc-omnisharp-vim-contents*
+
+Introduction	    |ddc-omnisharp-vim-introduction|
+Install			    |ddc-omnisharp-vim-install|
+Examples		    |ddc-omnisharp-vim-examples|
+Params			    |ddc-omnisharp-vim-params|
+
+
+==============================================================================
+INTRODUCTION					*ddc-omnisharp-vim-introduction*
+
+This source uses omnisharp-vim.
+
+==============================================================================
+INSTALL							*ddc-omnisharp-vim-install*
+
+All three of "ddc.vim", "denops.vim" and "omnisharp-vim" must be installed.
+
+https://github.com/Shougo/ddc.vim
+https://github.com/vim-denops/denops.vim
+https://github.com/OmniSharp/omnisharp-vim
+
+
+==============================================================================
+EXAMPLES						*ddc-omnisharp-vim-examples*
+
+
+To put in your ~/.vimrc or other config file along with the rest of the ddc.vim settings:
+
+>
+	call ddc#custom#patch_global('sources', ['omnisharp-vim'])
+	call ddc#custom#patch_global('sourceOptions', {
+	      \ 'omnisharp-vim': {'mark': 'OMNI'},
+	      \ })
+<
+
+==============================================================================
+PARAMS							*ddc-omnisharp-vim-params*
+
+There are currently no params configured for this plugin.
+
+==============================================================================

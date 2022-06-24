@@ -1,17 +1,16 @@
 import { BaseSource, Item } from "https://deno.land/x/ddc_vim@v2.2.0/types.ts";
 import { GatherArguments } from "https://deno.land/x/ddc_vim@v2.2.0/base/source.ts";
-import { vars } from "https://deno.land/x/ddc_vim@v2.2.0/deps.ts";
 
 // I think this just ignores potential parameters to configure this source in ddc
 type Params = Record<never, never>;
 
-// Attempt adaptation of the omnisharp-vim deoplete source for ddc.vim
-// This is a work in progress.
+// Adaptation of the omnisharp-vim deoplete source for ddc.vim
+// Modeled off of the python interpretation
 
 export class Source extends BaseSource<Params> {
   previousLhs = "";
   previousPartial = "";
-  results: Item[] = [];
+  cachedResults: Item[] = [];
 
   async gather(
     args: GatherArguments<Params>,
@@ -31,31 +30,13 @@ export class Source extends BaseSource<Params> {
     if (lhs != this.previousLhs || !partial?.startsWith(this.previousPartial)) {
       this.previousLhs = lhs!
       this.previousPartial = partial!
-      //args.denops.call(
-        //"deoplete#source#omnisharp#sendRequest",
-        //lhs,
-        //partial
-      //);
-      this.results = await args.denops.call(
+      this.cachedResults = await args.denops.call(
           "OmniSharp#actions#complete#Get",
-          partial
+          partial,
         ) as Item[];
     }
 
-    // Get stored results from omnisharp-vim
-    //const results = await vars.g.get(
-      //args.denops,
-      //"deoplete#source#omnisharp#_results",
-    //) as {
-      //words: string[];
-    //}
-
-    // This is very likely wrong
-    //return results.words.map((word) => ({
-      //word: lhs,
-      //menu: word,
-    //}));
-    return this.results;
+    return this.cachedResults;
   }
 
   private parseInput(
