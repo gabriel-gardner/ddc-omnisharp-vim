@@ -31,7 +31,6 @@ export class Source extends BaseSource<Params> {
       this.cachedResults = await args.denops.call(
           "OmniSharp#actions#complete#Get",
           partial,
-          () => null, // Testing empty callback to make Get not synchronous?
         ) as Item[];
     }
 
