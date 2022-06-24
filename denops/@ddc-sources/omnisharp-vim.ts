@@ -2,8 +2,8 @@ import { BaseSource, Item } from "https://deno.land/x/ddc_vim@v2.2.0/types.ts";
 import { GatherArguments } from "https://deno.land/x/ddc_vim@v2.2.0/base/source.ts";
 import { vars } from "https://deno.land/x/ddc_vim@v2.2.0/deps.ts";
 
+// I think this just ignores potential parameters to configure this source in ddc
 type Params = Record<never, never>;
-
 
 // Attempt adaptation of the omnisharp-vim deoplete source for ddc.vim
 // This is a work in progress.
@@ -57,11 +57,14 @@ export class Source extends BaseSource<Params> {
   private parseInput(
     input: string,
   ): [string | undefined, string | undefined] {
+
+    // Attempted to adapt from the python regex in the deoplete source
     const match = input.match(/^(?<firstgroup>.*\W)(?<secondgroup>\w*)$/);
 
     if (match !== null) {
       return [match?.groups?.firstgroup, match?.groups?.secondgroup];
-    }        
+    }
+
     return [undefined, undefined];
   }
 
