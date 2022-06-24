@@ -1,3 +1,5 @@
+## This was copied from another ddc source, not sure if this is necessary
+
 TARGETS := $$(find . \( -name '*.ts' -or -name '*.md' \) -not -path './.deno/*')
 
 .DEFAULT_GOAL := help
