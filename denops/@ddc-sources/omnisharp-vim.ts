@@ -14,17 +14,15 @@ export class Source extends BaseSource<Params> {
     args: GatherArguments<Params>,
   ): Promise<Item[]> {
 
-    // Get current input at cursor?
+    // Get current input at cursor
     const currentInput = args.context.input;
 
-    // Regex the input
     const [lhs, partial] = this.parseInput(currentInput);
 
     if (!lhs) {
       return [];
     }
 
-    // Call omnisharp-vim to get completions
     if (lhs != this.previousLhs || !partial?.startsWith(this.previousPartial)) {
       this.previousLhs = lhs!
       this.previousPartial = partial!
