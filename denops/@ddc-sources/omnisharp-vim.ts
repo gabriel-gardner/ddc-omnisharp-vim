@@ -29,6 +29,7 @@ export class Source extends BaseSource<Params> {
       this.cachedResults = await args.denops.call(
           "OmniSharp#actions#complete#Get",
           partial,
+          {},
         ) as Item[];
     }
 
